@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fern's Executive Coaching Portal | I Keep Receipts</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              800: '#1e293b',
+              900: '#0f172a',
+              navy: '#0b132b',
+              accent: '#3b82f6',
+              gold: '#d97706',
+              emerald: '#059669',
+              emeraldLight: '#ecfdf5',
+              lavender: '#f5f3ff',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbar and subtle transitions */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .tab-active {
+      border-bottom: 2px solid #2563eb;
+      color: #1d4ed8;
+      font-weight: 600;
+    }
+    .badge-soft {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.625rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .modal-backdrop {
+      background-color: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans antialiased">
+
+  <!-- TOP BRAND HEADER -->
+  <header class="bg-brand-navy text-white sticky top-0 z-40 border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo / Brand Info -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg font-serif font-bold text-lg text-white">
+            IKR
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm uppercase tracking-wider font-semibold text-slate-300">I Keep Receipts</span>
+              <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full border border-blue-400/30">Client Portal</span>
+            </div>
+            <p class="text-xs text-slate-400">Executive Corporate Strategy with Aviance</p>
+          </div>
+        </div>
+
+        <!-- Right Quick Action Badge & Client Info -->
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:flex flex-col text-right">
+            <span class="text-sm font-semibold text-slate-100">Fern (Menasha)</span>
+            <span class="text-xs text-emerald-400 flex items-center justify-end gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Core Retainer ($175/mo)
+            </span>
+          </div>
+          <button id="btnQuickReceipt" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow transition-all flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <span>Log Win / Receipt</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- NAVIGATION TABS -->
+      <nav class="flex space-x-1 sm:space-x-4 overflow-x-auto border-t border-slate-800/80 pt-1 -mb-px">
+        <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2 tab-active" data-tab="tab-overview">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          Overview & Plan
+        </button>
+        <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-sessions">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          Sessions Log
+          <span id="sessionCountBadge" class="bg-slate-700 text-slate-200 text-xs px-1.5 py-0.2 rounded-full">1</span>
+        </button>
+        <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-actions">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+          Progress & Action Items
+          <span id="pendingActionCount" class="bg-blue-600 text-white text-xs px-1.5 py-0.2 rounded-full">4</span>
+        </button>
+        <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-wins">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+          Wins & Receipts Vault
+          <span id="winsCountBadge" class="bg-amber-500 text-slate-900 text-xs font-bold px-1.5 py-0.2 rounded-full">2</span>
+        </button>
+        <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-library">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          Reading & Playbooks
+        </button>
+        <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-hotline">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+          Message Drafting & Hotline
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+
+    <!-- TAB 1: OVERVIEW & ROADMAP -->
+    <section id="tab-overview" class="tab-content space-y-6">
+
+      <!-- WELCOME HERO BANNER -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-700">
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold mb-3 border border-blue-400/30">
+            <span>🌿 Private Client Portal</span> &bull; <span>Welcome, Fern!</span>
+          </div>
+          <h1 class="font-serif text-2xl sm:text-4xl font-bold tracking-tight mb-2">
+            Your Corporate Defense & Strategic Growth Blueprint
+          </h1>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+            Welcome to your dedicated coaching hub! Here you can track our 1-on-1 strategy sessions, monitor your Situational Leadership progression, review your action playbooks, and file your career receipts and wins.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button id="heroBtnSession" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs sm:text-sm rounded-lg shadow transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              View Last Session Notes
+            </button>
+            <button id="heroBtnWin" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-medium text-xs sm:text-sm rounded-lg transition-all flex items-center gap-2">
+              <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+              Log Today's Win
+            </button>
+            <button id="heroBtnDraft" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-medium text-xs sm:text-sm rounded-lg transition-all flex items-center gap-2">
+              <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+              Email Review Sandbox
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY METRICS CARDS -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">Retainer Tier</span>
+            <span class="p-1.5 rounded-lg bg-blue-50 text-blue-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+            </span>
+          </div>
+          <div>
+            <div class="text-lg font-bold text-slate-900">Core Strategy</div>
+            <div class="text-xs text-slate-500">$175/mo &bull; Active</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">Monthly Calls</span>
+            <span class="p-1.5 rounded-lg bg-indigo-50 text-indigo-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            </span>
+          </div>
+          <div>
+            <div class="text-lg font-bold text-slate-900" id="callsCounter">1 of 2 Used</div>
+            <div class="text-xs text-emerald-600 font-medium">1 session remaining in Nov</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">Action Items</span>
+            <span class="p-1.5 rounded-lg bg-emerald-50 text-emerald-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </span>
+          </div>
+          <div>
+            <div class="text-lg font-bold text-slate-900" id="statActionsProgress">3 of 7 Done</div>
+            <div class="text-xs text-slate-500">43% Completion rate</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">Wins & Receipts</span>
+            <span class="p-1.5 rounded-lg bg-amber-50 text-amber-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+            </span>
+          </div>
+          <div>
+            <div class="text-lg font-bold text-slate-900" id="statWinsCount">2 Filed</div>
+            <div class="text-xs text-amber-600 font-medium">Confidence boosting!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SITUATIONAL LEADERSHIP PROGRESS TRACKER -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-100">Core Framework</span>
+              <h2 class="text-lg font-bold text-slate-900">Your Situational Leadership Trajectory</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">
+              Diagnosed during our Oct 28 strategy call: Moving you from Disillusioned Learner to Autonomous Leader.
+            </p>
+          </div>
+          <span class="self-start sm:self-auto text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+            Current Phase: Transitioning to Stage 3
+          </span>
+        </div>
+
+        <!-- STAGES TIMELINE -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+          <!-- Stage 1 -->
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/70 relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-400">STAGE 1</span>
+              <span class="text-xs text-slate-400 font-medium">Completed</span>
+            </div>
+            <h4 class="font-bold text-sm text-slate-700">Enthusiastic Beginner</h4>
+            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+              High commitment, low specific competence. Initial excitement of joining the team and new role.
+            </p>
+            <div class="mt-3 text-[11px] text-slate-400 font-medium flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Past Onboarding Stage
+            </div>
+          </div>
+
+          <!-- Stage 2 (Current) -->
+          <div class="border-2 border-amber-400 rounded-xl p-4 bg-amber-50/40 relative shadow-md ring-2 ring-amber-400/20">
+            <div class="absolute -top-2.5 left-4 bg-amber-500 text-slate-950 font-extrabold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">
+              Where You Were (Oct 28)
+            </div>
+            <div class="flex items-center justify-between mb-2 pt-1">
+              <span class="text-xs font-bold text-amber-700">STAGE 2</span>
+              <span class="text-xs bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-bold">Diagnosed</span>
+            </div>
+            <h4 class="font-bold text-sm text-slate-900">The Disillusioned Learner</h4>
+            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+              Excitement wears off, daily friction starts, micromanagement causes fatigue. Normal, temporary phase!
+            </p>
+            <div class="mt-3 text-[11px] text-amber-800 font-semibold bg-amber-100/70 p-1.5 rounded">
+              🎯 Shift: From wanting leadership to assign every move &rarr; Self-directed initiative.
+            </div>
+          </div>
+
+          <!-- Stage 3 (Target) -->
+          <div class="border-2 border-blue-500 rounded-xl p-4 bg-blue-50/50 relative shadow-sm">
+            <div class="absolute -top-2.5 left-4 bg-blue-600 text-white font-extrabold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">
+              Immediate Coaching Target
+            </div>
+            <div class="flex items-center justify-between mb-2 pt-1">
+              <span class="text-xs font-bold text-blue-700">STAGE 3</span>
+              <span class="text-xs text-blue-600 font-semibold">Active Focus</span>
+            </div>
+            <h4 class="font-bold text-sm text-slate-900">Capable but Cautious</h4>
+            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+              Growing mastery, self-directed. You only bring leadership in for targeted clarification on execution.
+            </p>
+            <div class="mt-3 text-[11px] text-blue-800 font-semibold bg-blue-100/70 p-1.5 rounded">
+              🚀 Key Shift: Proactive Informing & Authoritative corporate vocabulary.
+            </div>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/70 relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-400">STAGE 4</span>
+              <span class="text-xs text-slate-400 font-medium">Future Goal</span>
+            </div>
+            <h4 class="font-bold text-sm text-slate-700">Self-Reliant Achiever</h4>
+            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+              High competence, high autonomy. Trusted advisor, leading high-visibility strategic initiatives.
+            </p>
+            <div class="mt-3 text-[11px] text-slate-500 font-medium">
+              👑 Ready for next promotion & title leverage.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 30-60-90 DAY STRATEGY ROADMAP -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          30-60-90 Day Strategic Action Roadmap
+        </h3>
+
+        <div class="space-y-4">
+          <!-- Month 1 -->
+          <div class="border-l-4 border-blue-600 pl-4 py-1">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-slate-900">Month 1 (Nov): Taming Micromanagement & Autonomous Posture</h4>
+              <span class="text-xs font-semibold px-2 py-0.5 bg-blue-100 text-blue-800 rounded">Current Month</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-1">
+              Establish proactive informing habits with direct manager; erase "I feel" from corporate emails; implement documentation hygiene for all project agreements and receipts.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Weekly Status Updates</span>
+              <span class="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Authoritative Phrasing</span>
+              <span class="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Skip-Level Debrief</span>
+            </div>
+          </div>
+
+          <!-- Month 2 -->
+          <div class="border-l-4 border-slate-300 pl-4 py-1">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-slate-800">Month 2 (Dec): Executive Presence & Skip-Level Influence</h4>
+              <span class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Upcoming</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+              Master the art of "steering less & listening more"; align project outputs with senior leadership KPI metrics; navigate high-stakes cross-functional meetings.
+            </p>
+          </div>
+
+          <!-- Month 3 -->
+          <div class="border-l-4 border-slate-300 pl-4 py-1">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-slate-800">Month 3 (Jan): Performance Protection & Value Demonstration</h4>
+              <span class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Upcoming</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+              Compile quarterly achievements into an unassailable "Receipts Portfolio"; prepare for year-end or Q1 performance reviews; position for title & compensation elevation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RETAINER COVERAGE QUICK CARD -->
+      <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-2xl p-6 border border-slate-800 shadow-md">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Your Retainer Details</div>
+            <h3 class="text-lg font-bold text-white mt-1">Core Strategy Retainer &bull; $175 / month</h3>
+            <ul class="text-xs text-slate-300 mt-2 space-y-1">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                Two (2) 1-Hour Strategy Sessions per month
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                Unlimited text and email availability for real-time strategy, receipt reviews, and message drafting
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                On-demand emergency phone calls outside scheduled sessions ($10 / call)
+              </li>
+            </ul>
+          </div>
+          <div class="flex flex-col sm:items-end gap-2 shrink-0">
+            <div class="flex flex-wrap sm:justify-end gap-2">
+              <a id="linkBeaconsPayment" href="https://ikeepreciepts.com/" target="_blank" rel="noopener" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-lg transition-all shadow flex items-center gap-1.5">
+                <span>💳 Beacons Retainer / Billing</span>
+              </a>
+              <button id="btnRequestEmergencyCall" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg transition-all shadow flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                Request On-Demand Call ($10)
+              </button>
+            </div>
+            <span class="text-[11px] text-slate-400">Included calls book free via private Calendly &bull; Next billing: Dec 10, 2026</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 2: SESSIONS LOG -->
+    <section id="tab-sessions" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Coaching Sessions Log</h2>
+          <p class="text-xs sm:text-sm text-slate-500">Track all past conversations, takeaways, homework, and book future calls.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btnBookNextCall" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold shadow transition-all flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            Schedule Next Call (Session 2)
+          </button>
+          <button id="btnLogNewSession" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            Log New Session
+          </button>
+        </div>
+      </div>
+
+      <!-- SESSIONS LIST CONTAINER -->
+      <div id="sessionsListContainer" class="space-y-4">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 3: ACTION ITEMS & PROGRESS TRACKER -->
+    <section id="tab-actions" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Strategic Action Items & Habit Tracker</h2>
+          <p class="text-xs sm:text-sm text-slate-500">Actionable steps, behavioral adjustments, and homework from your coaching sessions.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="inline-flex rounded-lg border border-slate-200 bg-white p-1 text-xs">
+            <button class="action-filter px-2.5 py-1 rounded-md font-semibold text-blue-600 bg-blue-50" data-filter="all">All</button>
+            <button class="action-filter px-2.5 py-1 rounded-md font-medium text-slate-600 hover:text-slate-900" data-filter="pending">Pending</button>
+            <button class="action-filter px-2.5 py-1 rounded-md font-medium text-slate-600 hover:text-slate-900" data-filter="completed">Completed</button>
+          </div>
+          <button id="btnAddNewAction" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow transition-all flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            Add Item
+          </button>
+        </div>
+      </div>
+
+      <!-- ACTION ITEMS LIST -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm divide-y divide-slate-100" id="actionsListContainer">
+        <!-- Dynamic actions rendered here -->
+      </div>
+    </section>
+
+    <!-- TAB 4: WINS & RECEIPTS VAULT -->
+    <section id="tab-wins" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <span>The Receipts & Wins Vault</span>
+            <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">Proof of Progress</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500">Every breakthrough, praise from colleagues, confident moment, and successfully handled workplace situation.</p>
+        </div>
+        <button id="btnOpenWinModal" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs shadow transition-all flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          Record a Win / Receipt
+        </button>
+      </div>
+
+      <!-- CELEBRATION QUOTE -->
+      <div class="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-100 border border-amber-200 rounded-xl p-4 text-amber-900 text-xs sm:text-sm flex items-start gap-3">
+        <span class="text-2xl">🏆</span>
+        <div>
+          <p class="font-bold">Aviance's Reminder:</p>
+          <p class="text-amber-800 text-xs mt-0.5">
+            "Walking into that room feeling less anxious and having a boost in confidence is a huge win, and that is what matters most! In corporate spaces, documentation isn't just for defense—it's your evidence of growth and leverage."
+          </p>
+        </div>
+      </div>
+
+      <!-- WINS CARDS GRID -->
+      <div id="winsGridContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Dynamic wins rendered here -->
+      </div>
+    </section>
+
+    <!-- TAB 5: READING & PLAYBOOKS -->
+    <section id="tab-library" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Reading Material & Strategy Playbooks</h2>
+          <p class="text-xs sm:text-sm text-slate-500">Curated frameworks, cheat sheets, and corporate defense guides customized for your situation.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="text" id="librarySearchInput" placeholder="Search playbooks & topics..." class="text-xs px-3 py-1.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-48 sm:w-64">
+        </div>
+      </div>
+
+      <!-- PLAYBOOKS GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="playbooksContainer">
+
+        <!-- PLAYBOOK 1: SITUATIONAL LEADERSHIP II -->
+        <div class="playbook-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-topic="leadership mindset framework">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="badge-soft bg-purple-100 text-purple-800">Framework Deep Dive</span>
+              <span class="text-xs text-slate-400">8 min read</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1">Situational Leadership: Navigating Stage 2 to Stage 3</h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Why the "Disillusioned Learner" phase happens to top performers, and the psychological shift required to become self-directed rather than waiting for leadership's permission.
+            </p>
+            <div class="bg-purple-50/60 p-3 rounded-lg border border-purple-100 text-xs text-purple-900 space-y-1 mb-4">
+              <p class="font-bold text-[11px] uppercase tracking-wider text-purple-700">Key Takeaway</p>
+              <p>Shift from wanting leadership to direct and assign your every move, to becoming highly autonomous—directing yourself and only bringing leadership in for targeted clarification.</p>
+            </div>
+          </div>
+          <button class="btn-read-playbook text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 self-start" data-playbook="situational-leadership">
+            Read Full Breakdown &rarr;
+          </button>
+        </div>
+
+        <!-- PLAYBOOK 2: MANAGING UP -->
+        <div class="playbook-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-topic="manager micromanagement communication">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="badge-soft bg-blue-100 text-blue-800">Tactical Strategy</span>
+              <span class="text-xs text-slate-400">6 min read</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1">The Managing Up Playbook: Taming Micromanagement</h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              How to train your direct manager on how to treat you through proactive status informing, reducing question fatigue, and setting predictable update cadences.
+            </p>
+            <div class="bg-blue-50/60 p-3 rounded-lg border border-blue-100 text-xs text-blue-900 space-y-1 mb-4">
+              <p class="font-bold text-[11px] uppercase tracking-wider text-blue-700">The 4 Golden Rules</p>
+              <p>1. Proactive Informing &bull; 2. Vocabulary Shift &bull; 3. Confident Inquiry &bull; 4. Grace & Consistency</p>
+            </div>
+          </div>
+          <button class="btn-read-playbook text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 self-start" data-playbook="managing-up">
+            Read Full Breakdown &rarr;
+          </button>
+        </div>
+
+        <!-- PLAYBOOK 3: CORPORATE VOCABULARY SHIFT -->
+        <div class="playbook-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-topic="language vocabulary scripts email">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="badge-soft bg-emerald-100 text-emerald-800">Cheat Sheet</span>
+              <span class="text-xs text-slate-400">5 min read</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1">Authoritative Vocabulary: Erasing "I Feel"</h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Replace tentative corporate language with authoritative executive presence. Stop sounding apologetic or uncertain in writing and spoken meetings.
+            </p>
+            <div class="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100 text-xs text-emerald-900 space-y-1 mb-4">
+              <p class="font-bold text-[11px] uppercase tracking-wider text-emerald-700">The Power Swaps</p>
+              <p>&bull; Instead of "I feel like maybe we should..." &rarr; <span class="font-semibold">"I recommend..."</span></p>
+              <p>&bull; Instead of "Does this look okay?" &rarr; <span class="font-semibold">"I will proceed with this plan by 3 PM unless you advise otherwise."</span></p>
+            </div>
+          </div>
+          <button class="btn-read-playbook text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 self-start" data-playbook="vocabulary-shift">
+            Read Full Breakdown &rarr;
+          </button>
+        </div>
+
+        <!-- PLAYBOOK 4: SKIP LEVEL & EXECUTIVE MASTERY -->
+        <div class="playbook-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-topic="executive skip-level meetings narrative">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="badge-soft bg-amber-100 text-amber-800">Executive Strategy</span>
+              <span class="text-xs text-slate-400">7 min read</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1">Skip-Level Mastery: Future-Focused & Ego Leverage</h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              How senior leaders view skip-level meetings. Learn to steer less, observe their operating rhythm, control the narrative forward, and invite their high-level wisdom.
+            </p>
+            <div class="bg-amber-50/60 p-3 rounded-lg border border-amber-100 text-xs text-amber-900 space-y-1 mb-4">
+              <p class="font-bold text-[11px] uppercase tracking-wider text-amber-700">Senior Leader Psychology</p>
+              <p>Leaders love feeling like they are dispensing wisdom. Ask about their strategic vision, take visible notes, and position yourself as a future-focused executor.</p>
+            </div>
+          </div>
+          <button class="btn-read-playbook text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 self-start" data-playbook="skip-level">
+            Read Full Breakdown &rarr;
+          </button>
+        </div>
+
+      </div>
+
+      <!-- RECOMMENDED BOOKS & PODCASTS -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          Recommended Reading & Foundations
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <div class="p-3 rounded-xl border border-slate-100 bg-slate-50">
+            <span class="font-bold text-slate-800 block text-sm">The First 90 Days</span>
+            <span class="text-slate-500 block mb-1">by Michael D. Watkins</span>
+            <p class="text-slate-600 leading-normal">The gold standard for establishing credibility, securing early wins, and negotiating expectations with managers.</p>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-100 bg-slate-50">
+            <span class="font-bold text-slate-800 block text-sm">Managing Up</span>
+            <span class="text-slate-500 block mb-1">by Mary Abbajay</span>
+            <p class="text-slate-600 leading-normal">How to succeed with any type of boss, especially micromanagers, ghost bosses, and impulsive executives.</p>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-100 bg-slate-50">
+            <span class="font-bold text-slate-800 block text-sm">Crucial Conversations</span>
+            <span class="text-slate-500 block mb-1">by Kerry Patterson et al.</span>
+            <p class="text-slate-600 leading-normal">Tools for talking when stakes are high, opinions vary, and emotions run strong without getting defensive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: MESSAGE DRAFTING & HOTLINE -->
+    <section id="tab-hotline" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <span>Message Drafting & Receipt Review Sandbox</span>
+            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">Retainer Perk</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500">Draft an email before hitting send, sanitize your tone, or request Aviance's live receipt review.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- DRAFTING SANDBOX (2 cols) -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <h3 class="text-base font-bold text-slate-900">Email & Message Tone Converter</h3>
+          <p class="text-xs text-slate-500">Select a scenario or paste what you want to say, and instantly convert it into authoritative corporate language.</p>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Scenario Preset</label>
+            <select id="presetScenarioSelect" class="w-full text-xs sm:text-sm border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-slate-50">
+              <option value="custom">-- Choose a Scenario or Write Custom --</option>
+              <option value="proactive_update">Proactive Weekly Status Update (To Prevent Micromanaging)</option>
+              <option value="pushback_scope">Pushing Back on Unrealistic Deadline / Scope Creep</option>
+              <option value="clarification_inquiry">Asking for Targeted Clarification (Without Asking Permission)</option>
+              <option value="skip_level_followup">Skip-Level Meeting Thank You & Development Commitment</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Your Draft or Context</label>
+            <textarea id="draftInputText" rows="4" class="w-full text-xs sm:text-sm border border-slate-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Type what you want to say or click a preset above..."></textarea>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <button id="btnConvertTone" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm rounded-lg shadow transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              Apply "I Keep Receipts" Authoritative Tone
+            </button>
+            <button id="btnClearDraft" class="text-xs text-slate-500 hover:text-slate-800">Clear</button>
+          </div>
+
+          <!-- OUTPUT RESULT -->
+          <div id="draftResultBox" class="mt-4 p-4 rounded-xl border border-blue-200 bg-blue-50/50 hidden">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Authoritative Recommended Response
+              </span>
+              <button id="btnCopyDraft" class="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                Copy to Clipboard
+              </button>
+            </div>
+            <div id="draftConvertedText" class="text-xs sm:text-sm text-slate-800 whitespace-pre-line leading-relaxed font-mono bg-white p-3 rounded-lg border border-blue-100"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: RETAINER DIRECT ACCESS CHANNELS -->
+        <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-2xl p-6 border border-slate-800 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">Direct Strategist Line</div>
+            <h3 class="text-base font-bold text-white mb-2">Have a questionable email?</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Remember your retainer includes unlimited text & email support during business and after hours. Before you hit send or reply to an uncomfortable situation, send your screenshot or draft over.
+            </p>
+
+            <div class="space-y-3 text-xs">
+              <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+                <span class="text-slate-400 block text-[11px]">Email Aviance</span>
+                <a id="displayCoachEmail" href="mailto:receipts@ikeepreciepts.com" class="text-slate-100 font-semibold font-mono hover:text-blue-300 underline">receipts@ikeepreciepts.com</a>
+                <span class="text-[10px] text-emerald-400 block mt-0.5">&bull; Subject: [Receipt Review] - Urgent or Routine</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+                <span class="text-slate-400 block text-[11px]">Text / Voice Note Priority Line</span>
+                <a id="displayCoachPhone" href="sms:+13025550199" class="text-slate-100 font-semibold font-mono hover:text-blue-300 underline">(302) 555-0199</a>
+                <span class="text-[10px] text-blue-300 block mt-0.5">&bull; Text screenshots anytime for fast triage</span>
+              </div>
+              <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-800/60 text-amber-200">
+                <span class="font-bold block text-[11px]">On-Demand Emergency Call ($10)</span>
+                <span class="text-[11px] block mt-0.5">Need a 15-min gut-check right before a sudden meeting? Click to request immediate phone briefing.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 mt-4 border-t border-slate-800">
+            <button id="btnHotlineAction" class="w-full py-2.5 px-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-lg transition-all shadow text-center">
+              Send Email to Aviance Now
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL 1: LOG NEW SESSION -->
+  <div id="modalSession" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900">Log Coaching Session</h3>
+        <button class="modal-close text-slate-400 hover:text-slate-700" data-modal="modalSession">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <form id="formNewSession" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Session Title / Topic</label>
+          <input type="text" id="sessionTitle" required placeholder="e.g. Session 2: Taming Micromanagement & 1-on-1 Prep" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Date</label>
+            <input type="date" id="sessionDate" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Duration</label>
+            <input type="text" id="sessionDuration" value="60 minutes" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Key Takeaways & Strategic Diagnoses</label>
+          <textarea id="sessionTakeaways" rows="3" required placeholder="Key shifts discussed, insights on manager dynamics..." class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Assigned Homework / Action Items (one per line)</label>
+          <textarea id="sessionActionItems" rows="2" placeholder="Send weekly update by Friday&#10;Audit language in 3 team emails" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" class="modal-close px-3 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold" data-modal="modalSession">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold shadow">Save Session</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: LOG WIN / RECEIPT -->
+  <div id="modalWin" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🏆</span>
+          <h3 class="text-lg font-bold text-slate-900">Record a Win or Receipt</h3>
+        </div>
+        <button class="modal-close text-slate-400 hover:text-slate-700" data-modal="modalWin">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <form id="formNewWin" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Win Title / Milestone</label>
+          <input type="text" id="winTitle" required placeholder="e.g. Shut down scope creep calmly without apologizing" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Category</label>
+            <select id="winCategory" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="Mindset & Anxiety">Mindset & Reduced Anxiety</option>
+              <option value="Executive Presence">Executive & Skip-Level</option>
+              <option value="Managing Up">Managing Up / Direct Boss</option>
+              <option value="Authoritative Language">Authoritative Phrasing</option>
+              <option value="Receipts & Protection">Receipts & Documentation</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Date Achieved</label>
+            <input type="date" id="winDate" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">What Happened & What It Proves (Your Receipt)</label>
+          <textarea id="winDescription" rows="3" required placeholder="Describe what you did, how you felt, and the positive outcome..." class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" class="modal-close px-3 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold" data-modal="modalWin">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg shadow">File Win</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: ADD ACTION ITEM -->
+  <div id="modalAction" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900">Add Strategic Action Item</h3>
+        <button class="modal-close text-slate-400 hover:text-slate-700" data-modal="modalAction">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <form id="formNewAction" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Action Description</label>
+          <input type="text" id="actionDescription" required placeholder="e.g. Schedule bi-weekly status email to manager on Mondays at 9 AM" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Category</label>
+          <select id="actionCategory" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <option value="Managing Up">Managing Up (Direct Boss)</option>
+            <option value="Language Shift">Vocabulary Shift</option>
+            <option value="Skip-Level">Skip-Level & Executive</option>
+            <option value="Documentation">Receipts & Documentation</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Due Date / Target Cadence</label>
+          <input type="text" id="actionDueDate" placeholder="e.g. Every Friday or Nov 17" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" class="modal-close px-3 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold" data-modal="modalAction">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold shadow">Add Action Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: FULL PLAYBOOK READER -->
+  <div id="modalPlaybook" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
+      <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+        <h3 id="playbookModalTitle" class="text-lg font-bold text-slate-900">Playbook Title</h3>
+        <button class="modal-close text-slate-400 hover:text-slate-700" data-modal="modalPlaybook">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div id="playbookModalContent" class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        <!-- Injected dynamically -->
+      </div>
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-end">
+        <button class="modal-close px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-semibold" data-modal="modalPlaybook">Close Playbook</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: EMERGENCY CALL REQUEST -->
+  <div id="modalEmergency" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl text-amber-500">⚡</span>
+          <h3 class="text-lg font-bold text-slate-900">Request Emergency Call</h3>
+        </div>
+        <button class="modal-close text-slate-400 hover:text-slate-700" data-modal="modalEmergency">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="text-xs text-slate-600 space-y-2">
+        <p>Your Core Retainer includes on-demand emergency triage calls outside scheduled sessions for <strong class="text-slate-900">$10 / call</strong>.</p>
+        <p class="bg-amber-50 p-2.5 rounded-lg border border-amber-200 text-amber-900">
+          <strong>Fastest way:</strong> Text Aviance directly at the client VIP cell with the keyword <code>"EMERGENCY CALL"</code> and a 1-sentence summary of the workplace issue. Aviance will confirm availability within 15–30 minutes.
+        </p>
+      </div>
+      <div class="pt-2 flex justify-end gap-2">
+        <button class="modal-close px-3 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold text-xs" data-modal="modalEmergency">Got It</button>
+        <button id="btnConfirmEmergencyText" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-lg text-xs font-bold shadow">Send Emergency Alert</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 6: COACH CONTACT & LINKS SETTINGS -->
+  <div id="modalCoachSettings" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900">⚙️ Coach Contact & Links Settings</h3>
+        <button class="modal-close text-slate-400 hover:text-slate-700" data-modal="modalCoachSettings">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <p class="text-xs text-slate-500">Update your email, VIP cell number, Beacons page, and private Calendly booking URL below.</p>
+      <form id="formCoachSettings" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Your Coaching Email</label>
+          <input type="email" id="cfgEmail" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Your Direct VIP Cell Phone Number</label>
+          <input type="text" id="cfgPhone" required placeholder="e.g. (302) 555-0199" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Beacons Portal / Payment URL</label>
+          <input type="url" id="cfgBeacons" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Private Calendly Retainer Booking URL (No-Charge Link)</label>
+          <input type="url" id="cfgCalendly" required placeholder="https://calendly.com/your-name/retainer-session" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" class="modal-close px-3 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold" data-modal="modalCoachSettings">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold shadow">Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 ease-out bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 border border-slate-700">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <span id="toastMsg">Action completed!</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-800">I Keep Receipts</span>
+        <span>&bull;</span>
+        <span>Corporate Strategy & Defense with Aviance</span>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+        <span>Client: Fern (Menasha)</span>
+        <span>&bull;</span>
+        <button id="btnOpenCoachSettings" class="text-slate-700 font-semibold hover:text-blue-600 hover:underline flex items-center gap-1">⚙️ Coach Settings</button>
+        <span>&bull;</span>
+        <button id="btnExportData" class="text-blue-600 hover:underline">Export / Backup Data</button>
+        <span>&bull;</span>
+        <a id="footerBeaconsLink" href="https://ikeepreciepts.com/" target="_blank" rel="noopener" class="text-blue-600 font-semibold hover:underline">Beacons Hub (ikeepreciepts.com)</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // =========================================================================
+    // 👑 AVIANCE'S EASY CONFIG: EDIT YOUR EMAIL, PHONE & LINKS RIGHT HERE!
+    // =========================================================================
+    const DEFAULT_COACH_CONFIG = {
+      coachEmail: 'receipts@ikeepreciepts.com',
+      coachPhone: '(302) 555-0199', // <-- Replace with your real VIP cell number
+      beaconsUrl: 'https://ikeepreciepts.com/',
+      calendlyRetainerUrl: 'https://ikeepreciepts.com/' // <-- Paste your Secret/Free Calendly link here
+    };
+
+    let coachConfig = { ...DEFAULT_COACH_CONFIG };
+
+    function loadCoachConfig() {
+      try {
+        const savedCfg = localStorage.getItem('ikr_coach_config');
+        if (savedCfg) {
+          coachConfig = { ...DEFAULT_COACH_CONFIG, ...JSON.parse(savedCfg) };
+        }
+      } catch (e) {
+        coachConfig = { ...DEFAULT_COACH_CONFIG };
+      }
+      applyCoachConfigToDOM();
+    }
+
+    function applyCoachConfigToDOM() {
+      const emailEl = document.getElementById('displayCoachEmail');
+      if (emailEl) {
+        emailEl.textContent = coachConfig.coachEmail;
+        emailEl.href = 'mailto:' + coachConfig.coachEmail + '?subject=[Receipt Review] Consultation Request from Fern';
+      }
+      const phoneEl = document.getElementById('displayCoachPhone');
+      if (phoneEl) {
+        phoneEl.textContent = coachConfig.coachPhone;
+        const cleanDigits = coachConfig.coachPhone.replace(/[^0-9+]/g, '');
+        phoneEl.href = 'sms:' + (cleanDigits || '+13025550199');
+      }
+      const beaconsPay = document.getElementById('linkBeaconsPayment');
+      if (beaconsPay) beaconsPay.href = coachConfig.beaconsUrl;
+      const footerBeacons = document.getElementById('footerBeaconsLink');
+      if (footerBeacons) footerBeacons.href = coachConfig.beaconsUrl;
+    }
+
+    // PRE-POPULATED DATA GROUNDED IN EMAIL SESSIONS
+    const DEFAULT_DATA = {
+      sessions: [
+        {
+          id: 'sess-1',
+          date: '2026-10-28',
+          title: 'Session 1: Strategy Foundation & Skip-Level Game Plan',
+          duration: '60 minutes',
+          takeaways: 'Diagnosed Situational Leadership Phase: Stage 2 (The Disillusioned Learner). Established strategies for managing up with direct manager via proactive informing. Prepared game plan for Thursday skip-level meeting (framing development goals, leveraging executive ego).',
+          actionItems: [
+            'Erase "I feel" from corporate vocabulary (shift to "I know," "I believe," "I want")',
+            'Over-communicate project status proactively before manager asks',
+            'Frame skip-level meeting around future development and seek high-level perspective',
+            'Document every workplace instruction and agreement in a dedicated receipt log'
+          ]
+        }
+      ],
+      actions: [
+        {
+          id: 'act-1',
+          text: 'Practice proactive status updates: Send weekly project briefing before manager asks',
+          category: 'Managing Up',
+          dueDate: 'Every Friday',
+          completed: false
+        },
+        {
+          id: 'act-2',
+          text: 'Corporate vocabulary shift: Erase "I feel"; replace with "I know", "I believe", "I want"',
+          category: 'Language Shift',
+          dueDate: 'Daily habit',
+          completed: true
+        },
+        {
+          id: 'act-3',
+          text: 'Complete skip-level meeting with senior leadership and insert development plan',
+          category: 'Skip-Level',
+          dueDate: 'Oct 30',
+          completed: true
+        },
+        {
+          id: 'act-4',
+          text: 'Confident inquiry posture: Ask for clarification on execution plan, not for permission to do your job',
+          category: 'Managing Up',
+          dueDate: 'Ongoing',
+          completed: false
+        },
+        {
+          id: 'act-5',
+          text: 'Executive presence: In skip-level debriefs, practice "steering less & listening more"',
+          category: 'Skip-Level',
+          dueDate: 'Next Executive Call',
+          completed: false
+        },
+        {
+          id: 'act-6',
+          text: 'Maintain documentation hygiene: File receipts of all key directives and email exchanges',
+          category: 'Documentation',
+          dueDate: 'Weekly',
+          completed: false
+        },
+        {
+          id: 'act-7',
+          text: 'Selected Core Strategy Retainer ($175/mo) and confirmed onboarding kickoff',
+          category: 'Milestone',
+          dueDate: 'Nov 9',
+          completed: true
+        }
+      ],
+      wins: [
+        {
+          id: 'win-1',
+          title: 'Walked into skip-level meeting feeling significantly less anxious & boost in confidence',
+          date: '2026-10-30',
+          category: 'Mindset & Anxiety',
+          description: 'Fern reported: "Regardless, I did feel less anxious going into it so that\'s a plus!" Transitioning from Stage 2 overwhelm to grounded composure.'
+        },
+        {
+          id: 'win-2',
+          title: 'Successfully steered development goals into senior leader meeting',
+          date: '2026-10-30',
+          category: 'Executive Presence',
+          description: 'Built development areas directly into the skip-level discussion. Recognized opportunity to "steer less" in future sessions—evidence of self-awareness and situational leadership growth!'
+        }
+      ]
+    };
+
+    // PLAYBOOKS CONTENT STORE
+    const PLAYBOOKS = {
+      'situational-leadership': {
+        title: 'Understanding Your Phase in "Situational Leadership"',
+        body: `
+          <h4 class="font-bold text-slate-900 text-sm mb-2">The 4 Developmental Stages:</h4>
+          <p class="mb-3">Situational Leadership (developed by Paul Hersey and Ken Blanchard) models how an individual's competence and commitment fluctuate as they grow in a role or organization:</p>
+          <ul class="list-disc pl-5 space-y-2 mb-4">
+            <li><strong>Stage 1 (Enthusiastic Beginner):</strong> High commitment, low specific competence. You're energized and eager to please, but lack deep institutional context.</li>
+            <li><strong>Stage 2 (The Disillusioned Learner) - [Where you started on Oct 28]:</strong> The initial honeymoon excitement wears off, the true political and operational friction sets in, and motivation naturally dips. <em>This is completely normal and temporary.</em></li>
+            <li><strong>Stage 3 (Capable but Cautious) - [Our Immediate Goal]:</strong> High competence, fluctuating confidence. You have the skills to execute independently, but you need supportive coaching and psychological safety.</li>
+            <li><strong>Stage 4 (Self-Reliant Achiever):</strong> High competence, high confidence. You direct your own projects, drive strategy, and lead upward effortlessly.</li>
+          </ul>
+          <h4 class="font-bold text-slate-900 text-sm mb-2">The Required Mindset Shift to Reach Stage 3:</h4>
+          <p class="mb-3">To exit Stage 2, you must stop seeking permission for your everyday execution. Instead of asking leadership <em>"What should I do here?"</em>, you shift to <strong>"Here is my execution plan and timeline; please let me know if you have specific constraints by 3 PM."</strong></p>
+        `
+      },
+      'managing-up': {
+        title: 'Managing Up (Your Direct Manager): Training Them How to Treat You',
+        body: `
+          <h4 class="font-bold text-slate-900 text-sm mb-2">1. Proactive Informing Posture</h4>
+          <p class="mb-3">Get in front of micromanagement before it starts. Micromanagers don't micromanage because they enjoy it; they micromanage because they feel anxious and out of control. When you over-communicate status updates before they even think to ask, you eliminate their anxiety.</p>
+
+          <h4 class="font-bold text-slate-900 text-sm mb-2">2. Confident Inquiry vs. Permission Seeking</h4>
+          <p class="mb-3">Ask questions when you need to, but always do it with confidence. You are asking for targeted clarification on your own execution plan, not asking for permission to do your job.</p>
+
+          <h4 class="font-bold text-slate-900 text-sm mb-2">3. Vocabulary Shift</h4>
+          <p class="mb-3">Erase "I feel" from your corporate vocabulary. From now on, use authoritative phrasing: <strong>"I know," "I believe,"</strong> and <strong>"I want."</strong></p>
+
+          <h4 class="font-bold text-slate-900 text-sm mb-2">4. Patience & Consistency</h4>
+          <p class="mb-3">Understand that it will take time and consistency on your end before they fully release their micromanaging grip. Stand your ground with calm professionalism.</p>
+        `
+      },
+      'vocabulary-shift': {
+        title: 'Authoritative Vocabulary Cheat Sheet: Erasing "I Feel"',
+        body: `
+          <p class="mb-3">In corporate environments, tentative language signals lack of conviction. Replace passive disclaimers with clear, authoritative executive phrases:</p>
+          <div class="overflow-x-auto my-3">
+            <table class="w-full text-xs text-left border border-slate-200 rounded-lg">
+              <thead class="bg-slate-100 text-slate-700 font-bold">
+                <tr>
+                  <th class="p-2.5 border-b border-slate-200">Tentative / Passive Phrasing (Stop)</th>
+                  <th class="p-2.5 border-b border-slate-200 text-emerald-800">Authoritative Phrasing (Use This)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="p-2 text-rose-600">"I feel like maybe we should try..."</td>
+                  <td class="p-2 font-medium text-emerald-700">"Based on our metrics, I recommend we implement..."</td>
+                </tr>
+                <tr>
+                  <td class="p-2 text-rose-600">"Does this look okay to you?"</td>
+                  <td class="p-2 font-medium text-emerald-700">"Here is the draft for your visibility. I will submit this at 4 PM."</td>
+                </tr>
+                <tr>
+                  <td class="p-2 text-rose-600">"Sorry to bother you with this..."</td>
+                  <td class="p-2 font-medium text-emerald-700">"Thank you for your time on this. To move forward..."</td>
+                </tr>
+                <tr>
+                  <td class="p-2 text-rose-600">"I think I might be able to finish..."</td>
+                  <td class="p-2 font-medium text-emerald-700">"I will have the completed deliverable to you by Thursday at 2 PM."</td>
+                </tr>
+                <tr>
+                  <td class="p-2 text-rose-600">"I feel like that deadline is too tight."</td>
+                  <td class="p-2 font-medium text-emerald-700">"To maintain quality, that deliverable requires 4 business days. I can deliver either Option A by Friday or Option B next Tuesday."</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `
+      },
+      'skip-level': {
+        title: 'Skip-Level Strategy: Controlling the Narrative & Executive Ego',
+        body: `
+          <h4 class="font-bold text-slate-900 text-sm mb-2">1. Control the Narrative</h4>
+          <p class="mb-3">Get ahead of any anxious performance conversations by immediately inserting your development plans into the discussion.</p>
+
+          <h4 class="font-bold text-slate-900 text-sm mb-2">2. Future-Focused Framing</h4>
+          <p class="mb-3">Do not dwell on what you are <em>not</em> doing well right now. Frame the entire conversation around <strong>what you plan to do better</strong> and <strong>how you are going to execute it</strong>.</p>
+
+          <h4 class="font-bold text-slate-900 text-sm mb-2">3. Leverage Executive Ego ("Steer Less, Observe More")</h4>
+          <p class="mb-3">Pivot the conversation by asking for their perspective on a subject you know they are great at. Senior leaders love feeling like they are dispensing high-level wisdom. Let them talk, let them lead that specific topic, and take visible notes. You walk away with executive mentorship and high favor.</p>
+        `
+      }
+    };
+
+    // STATE INITIALIZATION
+    let appState = {
+      sessions: [],
+      actions: [],
+      wins: []
+    };
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem('ikr_fern_coaching_data');
+        if (saved) {
+          appState = JSON.parse(saved);
+        } else {
+          appState = JSON.parse(JSON.stringify(DEFAULT_DATA));
+          saveState();
+        }
+      } catch (e) {
+        console.warn('LocalStorage unavailable, using in-memory state');
+        appState = JSON.parse(JSON.stringify(DEFAULT_DATA));
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem('ikr_fern_coaching_data', JSON.stringify(appState));
+      } catch (e) {
+        console.warn('Could not persist to LocalStorage');
+      }
+      updateUI();
+    }
+
+    // TOAST HELPER
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      if (!toast || !toastMsg) return;
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    // TAB SWITCHING
+    function initTabs() {
+      const tabs = document.querySelectorAll('.nav-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => {
+            t.classList.remove('tab-active');
+            t.classList.remove('text-blue-400');
+          });
+          tab.classList.add('tab-active');
+
+          const targetId = tab.getAttribute('data-tab');
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+          const targetContent = document.getElementById(targetId);
+          if (targetContent) targetContent.classList.remove('hidden');
+        });
+      });
+    }
+
+    function switchToTab(tabId) {
+      const tabBtn = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
+      if (tabBtn) tabBtn.click();
+    }
+
+    // RENDER SESSIONS
+    function renderSessions() {
+      const container = document.getElementById('sessionsListContainer');
+      const badge = document.getElementById('sessionCountBadge');
+      if (!container) return;
+
+      if (badge) badge.textContent = appState.sessions.length;
+
+      if (appState.sessions.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-xl p-8 text-center text-slate-400 border border-slate-200">
+            No sessions logged yet. Click "Log New Session" above to add one.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = appState.sessions.map((sess, idx) => {
+        const actionItemsList = Array.isArray(sess.actionItems)
+          ? sess.actionItems.map(item => `<li class="flex items-start gap-1.5"><span class="text-blue-500 font-bold">&bull;</span><span>${item}</span></li>`).join('')
+          : '';
+
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
+              <div>
+                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100 mr-2">Session #${appState.sessions.length - idx}</span>
+                <span class="text-xs text-slate-400">${sess.date} &bull; ${sess.duration || '60 min'}</span>
+                <h3 class="text-base font-bold text-slate-900 mt-1">${sess.title}</h3>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-2.5 py-1 rounded-full border border-emerald-100">Completed & Verified</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+              <div>
+                <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-1">Key Strategic Takeaways</h4>
+                <p class="bg-slate-50 p-3 rounded-xl border border-slate-100 leading-relaxed text-slate-600">${sess.takeaways}</p>
+              </div>
+
+              ${actionItemsList ? `
+                <div>
+                  <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-1">Assigned Action Items & Homework</h4>
+                  <ul class="bg-blue-50/40 p-3 rounded-xl border border-blue-100/60 text-xs text-slate-700 space-y-1">
+                    ${actionItemsList}
+                  </ul>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // RENDER ACTION ITEMS
+    let currentActionFilter = 'all';
+
+    function renderActions() {
+      const container = document.getElementById('actionsListContainer');
+      const pendingBadge = document.getElementById('pendingActionCount');
+      const progressStat = document.getElementById('statActionsProgress');
+      if (!container) return;
+
+      const completedCount = appState.actions.filter(a => a.completed).length;
+      const totalCount = appState.actions.length;
+      const pendingCount = totalCount - completedCount;
+
+      if (pendingBadge) pendingBadge.textContent = pendingCount;
+      if (progressStat) {
+        const pct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+        progressStat.textContent = `${completedCount} of ${totalCount} Done (${pct}%)`;
+      }
+
+      let filtered = appState.actions;
+      if (currentActionFilter === 'pending') filtered = appState.actions.filter(a => !a.completed);
+      if (currentActionFilter === 'completed') filtered = appState.actions.filter(a => a.completed);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-slate-400 text-xs">
+            No action items match the selected filter.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        return `
+          <div class="p-4 flex items-start justify-between gap-3 hover:bg-slate-50 transition-colors">
+            <div class="flex items-start gap-3">
+              <input type="checkbox" ${item.completed ? 'checked' : ''} data-id="${item.id}" class="action-toggle-checkbox mt-1 w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
+              <div>
+                <p class="text-xs sm:text-sm font-medium ${item.completed ? 'line-through text-slate-400' : 'text-slate-800'}">
+                  ${item.text}
+                </p>
+                <div class="flex flex-wrap items-center gap-2 mt-1.5 text-[11px]">
+                  <span class="badge-soft bg-slate-100 text-slate-700">${item.category}</span>
+                  ${item.dueDate ? `<span class="text-slate-400">Target: ${item.dueDate}</span>` : ''}
+                  ${item.completed ? `<span class="text-emerald-600 font-semibold">&bull; Completed</span>` : `<span class="text-amber-600 font-medium">&bull; In Progress</span>`}
+                </div>
+              </div>
+            </div>
+            <button class="btn-delete-action text-slate-300 hover:text-rose-500 p-1" data-id="${item.id}" title="Delete item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      // Attach checkbox listeners
+      container.querySelectorAll('.action-toggle-checkbox').forEach(chk => {
+        chk.addEventListener('change', (e) => {
+          const id = e.target.getAttribute('data-id');
+          const target = appState.actions.find(a => a.id === id);
+          if (target) {
+            target.completed = e.target.checked;
+            saveState();
+            showToast(target.completed ? 'Action marked as completed! 🎉' : 'Action marked as pending');
+          }
+        });
+      });
+
+      // Attach delete listeners
+      container.querySelectorAll('.btn-delete-action').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = btn.getAttribute('data-id');
+          appState.actions = appState.actions.filter(a => a.id !== id);
+          saveState();
+          showToast('Action item removed');
+        });
+      });
+    }
+
+    // RENDER WINS
+    function renderWins() {
+      const grid = document.getElementById('winsGridContainer');
+      const badge = document.getElementById('winsCountBadge');
+      const statWins = document.getElementById('statWinsCount');
+      if (!grid) return;
+
+      if (badge) badge.textContent = appState.wins.length;
+      if (statWins) statWins.textContent = `${appState.wins.length} Filed`;
+
+      if (appState.wins.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-white rounded-xl p-8 text-center text-slate-400 border border-slate-200">
+            No wins recorded yet. File your first win using the button above!
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = appState.wins.map(win => {
+        return `
+          <div class="bg-white rounded-2xl border border-amber-200/80 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-amber-200/40 to-transparent rounded-bl-3xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="badge-soft bg-amber-100 text-amber-900 border border-amber-200 font-bold">${win.category}</span>
+                <span class="text-xs text-slate-400">${win.date}</span>
+              </div>
+              <h3 class="text-sm sm:text-base font-bold text-slate-900 mb-2">${win.title}</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed bg-amber-50/30 p-3 rounded-xl border border-amber-100/50">
+                ${win.description}
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+              <span class="flex items-center gap-1 text-emerald-600 font-semibold">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                Receipt Verified
+              </span>
+              <button class="btn-delete-win text-slate-300 hover:text-rose-500 p-1" data-id="${win.id}" title="Remove win">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      grid.querySelectorAll('.btn-delete-win').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          appState.wins = appState.wins.filter(w => w.id !== id);
+          saveState();
+          showToast('Win record removed');
+        });
+      });
+    }
+
+    function updateUI() {
+      renderSessions();
+      renderActions();
+      renderWins();
+    }
+
+    // MODAL HELPERS
+    function openModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.add('hidden');
+    }
+
+    function initModals() {
+      document.querySelectorAll('.modal-close').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modalId = btn.getAttribute('data-modal');
+          closeModal(modalId);
+        });
+      });
+
+      // Quick triggers
+      const btnQuickReceipt = document.getElementById('btnQuickReceipt');
+      if (btnQuickReceipt) btnQuickReceipt.addEventListener('click', () => openModal('modalWin'));
+
+      const btnHeroWin = document.getElementById('heroBtnWin');
+      if (btnHeroWin) btnHeroWin.addEventListener('click', () => openModal('modalWin'));
+
+      const btnOpenWinModal = document.getElementById('btnOpenWinModal');
+      if (btnOpenWinModal) btnOpenWinModal.addEventListener('click', () => openModal('modalWin'));
+
+      const btnLogNewSession = document.getElementById('btnLogNewSession');
+      if (btnLogNewSession) {
+        btnLogNewSession.addEventListener('click', () => {
+          const dateInput = document.getElementById('sessionDate');
+          if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
+          openModal('modalSession');
+        });
+      }
+
+      const btnAddNewAction = document.getElementById('btnAddNewAction');
+      if (btnAddNewAction) btnAddNewAction.addEventListener('click', () => openModal('modalAction'));
+
+      const btnRequestEmergencyCall = document.getElementById('btnRequestEmergencyCall');
+      if (btnRequestEmergencyCall) btnRequestEmergencyCall.addEventListener('click', () => openModal('modalEmergency'));
+
+      const heroBtnSession = document.getElementById('heroBtnSession');
+      if (heroBtnSession) heroBtnSession.addEventListener('click', () => switchToTab('tab-sessions'));
+
+      const heroBtnDraft = document.getElementById('heroBtnDraft');
+      if (heroBtnDraft) heroBtnDraft.addEventListener('click', () => switchToTab('tab-hotline'));
+
+      const btnBookNextCall = document.getElementById('btnBookNextCall');
+      if (btnBookNextCall) {
+        btnBookNextCall.addEventListener('click', () => {
+          showToast('Opening private Retainer Calendly link (No extra charge)...');
+          window.open(coachConfig.calendlyRetainerUrl || coachConfig.beaconsUrl, '_blank', 'noopener');
+        });
+      }
+
+      const btnConfirmEmergencyText = document.getElementById('btnConfirmEmergencyText');
+      if (btnConfirmEmergencyText) {
+        btnConfirmEmergencyText.addEventListener('click', () => {
+          closeModal('modalEmergency');
+          const cleanDigits = coachConfig.coachPhone.replace(/[^0-9+]/g, '');
+          window.location.href = 'sms:' + cleanDigits + '?body=EMERGENCY%20CALL%20-%20Hi%20Aviance,%20I%20need%20an%20on-demand%20call%20regarding...';
+        });
+      }
+
+      const btnOpenCoachSettings = document.getElementById('btnOpenCoachSettings');
+      if (btnOpenCoachSettings) {
+        btnOpenCoachSettings.addEventListener('click', () => {
+          document.getElementById('cfgEmail').value = coachConfig.coachEmail;
+          document.getElementById('cfgPhone').value = coachConfig.coachPhone;
+          document.getElementById('cfgBeacons').value = coachConfig.beaconsUrl;
+          document.getElementById('cfgCalendly').value = coachConfig.calendlyRetainerUrl;
+          openModal('modalCoachSettings');
+        });
+      }
+
+      const formCoachSettings = document.getElementById('formCoachSettings');
+      if (formCoachSettings) {
+        formCoachSettings.addEventListener('submit', (e) => {
+          e.preventDefault();
+          coachConfig.coachEmail = document.getElementById('cfgEmail').value.trim();
+          coachConfig.coachPhone = document.getElementById('cfgPhone').value.trim();
+          coachConfig.beaconsUrl = document.getElementById('cfgBeacons').value.trim();
+          coachConfig.calendlyRetainerUrl = document.getElementById('cfgCalendly').value.trim();
+          try {
+            localStorage.setItem('ikr_coach_config', JSON.stringify(coachConfig));
+          } catch (err) {}
+          applyCoachConfigToDOM();
+          closeModal('modalCoachSettings');
+          showToast('Coach contact info & links updated!');
+        });
+      }
+    }
+
+    // FORM SUBMISSIONS
+    function initForms() {
+      // New Session Form
+      const formSession = document.getElementById('formNewSession');
+      if (formSession) {
+        formSession.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const title = document.getElementById('sessionTitle').value;
+          const date = document.getElementById('sessionDate').value;
+          const duration = document.getElementById('sessionDuration').value;
+          const takeaways = document.getElementById('sessionTakeaways').value;
+          const rawActions = document.getElementById('sessionActionItems').value;
+
+          const actionItems = rawActions.split('\n').map(s => s.trim()).filter(Boolean);
+
+          const newSession = {
+            id: 'sess-' + Date.now(),
+            title,
+            date,
+            duration,
+            takeaways,
+            actionItems
+          };
+
+          appState.sessions.unshift(newSession);
+
+          // Also populate to action items list if any
+          actionItems.forEach((text, i) => {
+            appState.actions.unshift({
+              id: 'act-' + Date.now() + '-' + i,
+              text,
+              category: 'Session Homework',
+              dueDate: 'Next Session',
+              completed: false
+            });
+          });
+
+          saveState();
+          formSession.reset();
+          closeModal('modalSession');
+          showToast('Coaching session logged and verified!');
+        });
+      }
+
+      // New Win Form
+      const formWin = document.getElementById('formNewWin');
+      if (formWin) {
+        formWin.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const title = document.getElementById('winTitle').value;
+          const category = document.getElementById('winCategory').value;
+          const date = document.getElementById('winDate').value;
+          const description = document.getElementById('winDescription').value;
+
+          const newWin = {
+            id: 'win-' + Date.now(),
+            title,
+            category,
+            date,
+            description
+          };
+
+          appState.wins.unshift(newWin);
+          saveState();
+          formWin.reset();
+          closeModal('modalWin');
+          showToast('Win filed in your Receipts Vault! 🏆');
+        });
+      }
+
+      // New Action Form
+      const formAction = document.getElementById('formNewAction');
+      if (formAction) {
+        formAction.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const text = document.getElementById('actionDescription').value;
+          const category = document.getElementById('actionCategory').value;
+          const dueDate = document.getElementById('actionDueDate').value;
+
+          appState.actions.unshift({
+            id: 'act-' + Date.now(),
+            text,
+            category,
+            dueDate: dueDate || 'Ongoing',
+            completed: false
+          });
+
+          saveState();
+          formAction.reset();
+          closeModal('modalAction');
+          showToast('Action item added!');
+        });
+      }
+    }
+
+    // PLAYBOOKS VIEWER
+    function initPlaybooks() {
+      document.querySelectorAll('.btn-read-playbook').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-playbook');
+          const data = PLAYBOOKS[key];
+          if (data) {
+            document.getElementById('playbookModalTitle').textContent = data.title;
+            document.getElementById('playbookModalContent').innerHTML = data.body;
+            openModal('modalPlaybook');
+          }
+        });
+      });
+
+      // Filter search
+      const search = document.getElementById('librarySearchInput');
+      if (search) {
+        search.addEventListener('input', (e) => {
+          const q = e.target.value.toLowerCase();
+          document.querySelectorAll('.playbook-card').forEach(card => {
+            const topic = card.getAttribute('data-topic') || '';
+            const text = card.textContent.toLowerCase();
+            if (topic.includes(q) || text.includes(q)) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+        });
+      }
+    }
+
+    // MESSAGE DRAFTING / TONE CONVERTER
+    function initDraftingSandbox() {
+      const presetSelect = document.getElementById('presetScenarioSelect');
+      const draftInput = document.getElementById('draftInputText');
+      const btnConvert = document.getElementById('btnConvertTone');
+      const btnClear = document.getElementById('btnClearDraft');
+      const resultBox = document.getElementById('draftResultBox');
+      const convertedText = document.getElementById('draftConvertedText');
+      const btnCopy = document.getElementById('btnCopyDraft');
+      const btnHotlineAction = document.getElementById('btnHotlineAction');
+
+      const PRESETS = {
+        proactive_update: {
+          draft: 'Hey, just wanted to check if you need anything from me on the Q4 roadmap. I have finished the drafts and was wondering if they are okay or if I should change anything.',
+          converted: `Good morning [Manager Name],\n\nHere is the current status update for the Q4 roadmap deliverables:\n\n• Draft Deliverables: Complete and staged for final review.\n• Immediate Next Step: I will proceed with finalizing the slide assets by Thursday at 2 PM.\n• Blockers: None at this time.\n\nPlease let me know if you have specific strategic parameters you would like integrated prior to submission.\n\nBest regards,\nFern`
+        },
+        pushback_scope: {
+          draft: 'I feel like this new task is too much for me right now and I don\'t think I can get it done by tomorrow morning with everything else on my plate.',
+          converted: `Hi [Manager Name],\n\nI have received the request for [New Task Name]. To ensure high-quality execution alongside my existing priority deliverables, here are the two options for scheduling:\n\nOption 1: Prioritize [New Task Name] for delivery by tomorrow morning, and shift [Existing Deliverable] to Thursday afternoon.\nOption 2: Complete [Existing Deliverable] as planned tomorrow, and deliver [New Task Name] by Friday morning.\n\nPlease confirm which priority alignment best supports the team's immediate objective.\n\nBest regards,\nFern`
+        },
+        clarification_inquiry: {
+          draft: 'Is it okay if I do the presentation this way? Let me know if you want me to do something else instead.',
+          converted: `Good afternoon [Manager Name],\n\nI am finalizing the execution structure for the upcoming presentation. Based on the project objectives, I am structuring the narrative around [Core Solution A] with supporting operational data.\n\nUnless you have specific adjustments to this approach, I will finalize this version for our review by 3 PM.\n\nBest regards,\nFern`
+        },
+        skip_level_followup: {
+          draft: 'Thank you for meeting with me. Sorry I asked so many questions, I hope it was okay.',
+          converted: `Hi [Leader Name],\n\nThank you for taking the time to connect during our skip-level conversation today. I really appreciated hearing your perspective on [Topic/Strategic Objective].\n\nAs discussed, I am actively focusing on driving [Target Development Area, e.g., autonomous project delivery] and aligning my team deliverables directly with our strategic goals. I look forward to keeping you updated on our progress.\n\nKindly,\nFern`
+        }
+      };
+
+      if (presetSelect) {
+        presetSelect.addEventListener('change', (e) => {
+          const val = e.target.value;
+          if (PRESETS[val]) {
+            draftInput.value = PRESETS[val].draft;
+          }
+        });
+      }
+
+      if (btnClear) {
+        btnClear.addEventListener('click', () => {
+          draftInput.value = '';
+          resultBox.classList.add('hidden');
+          presetSelect.value = 'custom';
+        });
+      }
+
+      if (btnConvert) {
+        btnConvert.addEventListener('click', () => {
+          const val = presetSelect.value;
+          const userText = draftInput.value.trim();
+
+          if (!userText) {
+            showToast('Please type a draft or select a scenario preset first');
+            return;
+          }
+
+          if (PRESETS[val]) {
+            convertedText.textContent = PRESETS[val].converted.replace(/\\n/g, '\n');
+          } else {
+            // General converter rule
+            let polished = userText
+              .replace(/I feel like/gi, "I recommend")
+              .replace(/I feel/gi, "I know")
+              .replace(/I think maybe/gi, "I believe")
+              .replace(/sorry to bother you/gi, "thank you for your time")
+              .replace(/does this look okay/gi, "I will proceed with this plan unless you have modifications");
+
+            convertedText.textContent = `Good morning [Name],\n\n${polished}\n\nBest regards,\nFern`.replace(/\\n/g, '\n');
+          }
+
+          resultBox.classList.remove('hidden');
+          showToast('Authoritative corporate tone applied!');
+        });
+      }
+
+      if (btnCopy) {
+        btnCopy.addEventListener('click', () => {
+          const text = convertedText.textContent;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!'));
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('Copied to clipboard!');
+          }
+        });
+      }
+
+      if (btnHotlineAction) {
+        btnHotlineAction.addEventListener('click', () => {
+          window.location.href = 'mailto:' + coachConfig.coachEmail + '?subject=[Receipt Review] Consultation Request from Fern';
+        });
+      }
+    }
+
+    // EXPORT DATA
+    function initExport() {
+      const btnExport = document.getElementById('btnExportData');
+      if (btnExport) {
+        btnExport.addEventListener('click', () => {
+          const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+          const dlAnchor = document.createElement('a');
+          dlAnchor.setAttribute("href", dataStr);
+          dlAnchor.setAttribute("download", "fern_coaching_portal_backup.json");
+          document.body.appendChild(dlAnchor);
+          dlAnchor.click();
+          dlAnchor.remove();
+          showToast('Portal data exported as JSON backup!');
+        });
+      }
+    }
+
+    // ACTION FILTERS
+    function initActionFilters() {
+      document.querySelectorAll('.action-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.action-filter').forEach(b => {
+            b.classList.remove('bg-blue-50', 'text-blue-600', 'font-semibold');
+            b.classList.add('text-slate-600');
+          });
+          btn.classList.add('bg-blue-50', 'text-blue-600', 'font-semibold');
+          btn.classList.remove('text-slate-600');
+
+          currentActionFilter = btn.getAttribute('data-filter');
+          renderActions();
+        });
+      });
+    }
+
+    // BOOTSTRAP
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCoachConfig();
+      loadState();
+      initTabs();
+      initModals();
+      initForms();
+      initPlaybooks();
+      initDraftingSandbox();
+      initExport();
+      initActionFilters();
+      updateUI();
+    });
+  </script>
+</body>
+</html>
