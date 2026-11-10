@@ -375,11 +375,16 @@
             </ul>
           </div>
           <div class="flex flex-col sm:items-end gap-2 shrink-0">
-            <button id="btnRequestEmergencyCall" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg transition-all shadow flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-              Request On-Demand Call ($10)
-            </button>
-            <span class="text-[11px] text-slate-400">Next billing date: Dec 10, 2026</span>
+            <div class="flex flex-wrap sm:justify-end gap-2">
+              <a id="linkBeaconsPayment" href="https://ikeepreciepts.com/" target="_blank" rel="noopener" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-lg transition-all shadow flex items-center gap-1.5">
+                <span>💳 Beacons Retainer / Billing</span>
+              </a>
+              <button id="btnRequestEmergencyCall" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg transition-all shadow flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                Request On-Demand Call ($10)
+              </button>
+            </div>
+            <span class="text-[11px] text-slate-400">Included calls book free via private Calendly &bull; Next billing: Dec 10, 2026</span>
           </div>
         </div>
       </div>
@@ -669,12 +674,12 @@
             <div class="space-y-3 text-xs">
               <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
                 <span class="text-slate-400 block text-[11px]">Email Aviance</span>
-                <span class="text-slate-100 font-semibold font-mono">receipts@ikeepreceipts.com</span>
+                <a id="displayCoachEmail" href="mailto:receipts@ikeepreciepts.com" class="text-slate-100 font-semibold font-mono hover:text-blue-300 underline">receipts@ikeepreciepts.com</a>
                 <span class="text-[10px] text-emerald-400 block mt-0.5">&bull; Subject: [Receipt Review] - Urgent or Routine</span>
               </div>
               <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
                 <span class="text-slate-400 block text-[11px]">Text / Voice Note Priority Line</span>
-                <span class="text-slate-100 font-semibold font-mono">(Direct Client VIP Cell)</span>
+                <a id="displayCoachPhone" href="sms:+13025550199" class="text-slate-100 font-semibold font-mono hover:text-blue-300 underline">(302) 555-0199</a>
                 <span class="text-[10px] text-blue-300 block mt-0.5">&bull; Text screenshots anytime for fast triage</span>
               </div>
               <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-800/60 text-amber-200">
@@ -859,6 +864,41 @@
     </div>
   </div>
 
+  <!-- MODAL 6: COACH CONTACT & LINKS SETTINGS -->
+  <div id="modalCoachSettings" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900">⚙️ Coach Contact & Links Settings</h3>
+        <button class="modal-close text-slate-400 hover:text-slate-700" data-modal="modalCoachSettings">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <p class="text-xs text-slate-500">Update your email, VIP cell number, Beacons page, and private Calendly booking URL below.</p>
+      <form id="formCoachSettings" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Your Coaching Email</label>
+          <input type="email" id="cfgEmail" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Your Direct VIP Cell Phone Number</label>
+          <input type="text" id="cfgPhone" required placeholder="e.g. (302) 555-0199" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Beacons Portal / Payment URL</label>
+          <input type="url" id="cfgBeacons" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Private Calendly Retainer Booking URL (No-Charge Link)</label>
+          <input type="url" id="cfgCalendly" required placeholder="https://calendly.com/your-name/retainer-session" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" class="modal-close px-3 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold" data-modal="modalCoachSettings">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold shadow">Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 ease-out bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 border border-slate-700">
     <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -873,18 +913,62 @@
         <span>&bull;</span>
         <span>Corporate Strategy & Defense with Aviance</span>
       </div>
-      <div class="flex items-center gap-4 text-slate-500">
+      <div class="flex flex-wrap items-center justify-center gap-4 text-slate-500">
         <span>Client: Fern (Menasha)</span>
+        <span>&bull;</span>
+        <button id="btnOpenCoachSettings" class="text-slate-700 font-semibold hover:text-blue-600 hover:underline flex items-center gap-1">⚙️ Coach Settings</button>
         <span>&bull;</span>
         <button id="btnExportData" class="text-blue-600 hover:underline">Export / Backup Data</button>
         <span>&bull;</span>
-        <a href="https://beacons.ai" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Beacons Page</a>
+        <a id="footerBeaconsLink" href="https://ikeepreciepts.com/" target="_blank" rel="noopener" class="text-blue-600 font-semibold hover:underline">Beacons Hub (ikeepreciepts.com)</a>
       </div>
     </div>
   </footer>
 
   <!-- SCRIPT LOGIC -->
   <script>
+    // =========================================================================
+    // 👑 AVIANCE'S EASY CONFIG: EDIT YOUR EMAIL, PHONE & LINKS RIGHT HERE!
+    // =========================================================================
+    const DEFAULT_COACH_CONFIG = {
+      coachEmail: 'receipts@ikeepreciepts.com',
+      coachPhone: '(443) 406-6890', // <-- Replace with your real VIP cell number
+      beaconsUrl: 'https://ikeepreciepts.com/',
+      calendlyRetainerUrl: 'https://calendly.com/mckinzieaviance/new-meeting' // <-- Paste your Secret/Free Calendly link here
+    };
+
+    let coachConfig = { ...DEFAULT_COACH_CONFIG };
+
+    function loadCoachConfig() {
+      try {
+        const savedCfg = localStorage.getItem('ikr_coach_config');
+        if (savedCfg) {
+          coachConfig = { ...DEFAULT_COACH_CONFIG, ...JSON.parse(savedCfg) };
+        }
+      } catch (e) {
+        coachConfig = { ...DEFAULT_COACH_CONFIG };
+      }
+      applyCoachConfigToDOM();
+    }
+
+    function applyCoachConfigToDOM() {
+      const emailEl = document.getElementById('displayCoachEmail');
+      if (emailEl) {
+        emailEl.textContent = coachConfig.coachEmail;
+        emailEl.href = 'mailto:' + coachConfig.coachEmail + '?subject=[Receipt Review] Consultation Request from Fern';
+      }
+      const phoneEl = document.getElementById('displayCoachPhone');
+      if (phoneEl) {
+        phoneEl.textContent = coachConfig.coachPhone;
+        const cleanDigits = coachConfig.coachPhone.replace(/[^0-9+]/g, '');
+        phoneEl.href = 'sms:' + (cleanDigits || '+13025550199');
+      }
+      const beaconsPay = document.getElementById('linkBeaconsPayment');
+      if (beaconsPay) beaconsPay.href = coachConfig.beaconsUrl;
+      const footerBeacons = document.getElementById('footerBeaconsLink');
+      if (footerBeacons) footerBeacons.href = coachConfig.beaconsUrl;
+    }
+
     // PRE-POPULATED DATA GROUNDED IN EMAIL SESSIONS
     const DEFAULT_DATA = {
       sessions: [
@@ -1375,10 +1459,8 @@
       const btnBookNextCall = document.getElementById('btnBookNextCall');
       if (btnBookNextCall) {
         btnBookNextCall.addEventListener('click', () => {
-          showToast("Redirecting to Aviance's scheduling calendar for Session 2...");
-          setTimeout(() => {
-            showToast('Booking info sent to your email & calendar invite link.');
-          }, 300);
+          showToast('Opening private Retainer Calendly link (No extra charge)...');
+          window.open(coachConfig.calendlyRetainerUrl || coachConfig.beaconsUrl, '_blank', 'noopener');
         });
       }
 
@@ -1386,7 +1468,36 @@
       if (btnConfirmEmergencyText) {
         btnConfirmEmergencyText.addEventListener('click', () => {
           closeModal('modalEmergency');
-          showToast('Emergency request alerted! Aviance will contact you shortly.');
+          const cleanDigits = coachConfig.coachPhone.replace(/[^0-9+]/g, '');
+          window.location.href = 'sms:' + cleanDigits + '?body=EMERGENCY%20CALL%20-%20Hi%20Aviance,%20I%20need%20an%20on-demand%20call%20regarding...';
+        });
+      }
+
+      const btnOpenCoachSettings = document.getElementById('btnOpenCoachSettings');
+      if (btnOpenCoachSettings) {
+        btnOpenCoachSettings.addEventListener('click', () => {
+          document.getElementById('cfgEmail').value = coachConfig.coachEmail;
+          document.getElementById('cfgPhone').value = coachConfig.coachPhone;
+          document.getElementById('cfgBeacons').value = coachConfig.beaconsUrl;
+          document.getElementById('cfgCalendly').value = coachConfig.calendlyRetainerUrl;
+          openModal('modalCoachSettings');
+        });
+      }
+
+      const formCoachSettings = document.getElementById('formCoachSettings');
+      if (formCoachSettings) {
+        formCoachSettings.addEventListener('submit', (e) => {
+          e.preventDefault();
+          coachConfig.coachEmail = document.getElementById('cfgEmail').value.trim();
+          coachConfig.coachPhone = document.getElementById('cfgPhone').value.trim();
+          coachConfig.beaconsUrl = document.getElementById('cfgBeacons').value.trim();
+          coachConfig.calendlyRetainerUrl = document.getElementById('cfgCalendly').value.trim();
+          try {
+            localStorage.setItem('ikr_coach_config', JSON.stringify(coachConfig));
+          } catch (err) {}
+          applyCoachConfigToDOM();
+          closeModal('modalCoachSettings');
+          showToast('Coach contact info & links updated!');
         });
       }
     }
@@ -1613,7 +1724,7 @@
 
       if (btnHotlineAction) {
         btnHotlineAction.addEventListener('click', () => {
-          window.location.href = 'mailto:receipts@ikeepreceipts.com?subject=[Receipt Review] Consultation Request from Fern';
+          window.location.href = 'mailto:' + coachConfig.coachEmail + '?subject=[Receipt Review] Consultation Request from Fern';
         });
       }
     }
@@ -1654,6 +1765,7 @@
 
     // BOOTSTRAP
     document.addEventListener('DOMContentLoaded', () => {
+      loadCoachConfig();
       loadState();
       initTabs();
       initModals();
