@@ -119,6 +119,11 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
           Reading & Playbooks
         </button>
+        <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-prep">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+          Pre-Meeting Prep & Docs
+          <span id="prepCountBadge" class="bg-emerald-600 text-white text-xs px-1.5 py-0.2 rounded-full">1</span>
+        </button>
         <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-hotline">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
           Message Drafting & Hotline
@@ -157,6 +162,10 @@
             <button id="heroBtnDraft" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-medium text-xs sm:text-sm rounded-lg transition-all flex items-center gap-2">
               <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
               Email Review Sandbox
+            </button>
+            <button id="heroBtnPrep" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs sm:text-sm rounded-lg shadow transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+              Upload Docs & Homework Prep
             </button>
           </div>
         </div>
@@ -747,6 +756,119 @@
       </div>
     </section>
 
+    <!-- TAB 7: PRE-MEETING PREP & DOCUMENT UPLOADS -->
+    <section id="tab-prep" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <span>Pre-Meeting Prep, Homework & Document Drop</span>
+            <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">Ahead of Our Next Call</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500">Upload documents/screenshots to your shared Drive folder or submit your homework write-ups directly to Aviance before our session.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- LEFT COLUMN: OPTION 1 - SHARED GOOGLE DRIVE VAULT -->
+        <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-2xl p-6 border border-slate-800 shadow-md flex flex-col justify-between space-y-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-bold mb-3 border border-emerald-400/30">
+              <span>📂 Option 1: File & Screenshot Drop</span>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">Shared Google Drive Folder</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Need to share a Word doc, PDF, org chart, performance review, or email screenshots ahead of our meeting? Drop them directly into your private shared Google Drive folder so Aviance can review them before we hop on the call.
+            </p>
+
+            <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-3.5 text-xs space-y-2 mb-4">
+              <div class="font-bold text-slate-200 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                What to Drop Here:
+              </div>
+              <ul class="text-slate-300 text-[11px] space-y-1 pl-4 list-disc">
+                <li>Coworker Demographics &amp; <em>The Memo</em> Write-Up Docs</li>
+                <li>3-Year Career Goal &amp; 90-Day Execution Plans</li>
+                <li>Screenshots of Manager / Team Emails ("Receipts")</li>
+                <li>Performance Reviews, Job Descriptions, or Org Charts</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="space-y-2.5 pt-2 border-t border-slate-800">
+            <a id="linkDriveFolder" href="https://drive.google.com/drive/folders/1Retdx3Mmef7tDHgZgvihYyQf1MBk5pb2" target="_blank" rel="noopener" class="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-all shadow flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+              <span>Open Shared Google Drive Folder</span>
+            </a>
+            <p class="text-[11px] text-slate-400 text-center">Opens "Fern — Pre-Meeting Docs &amp; Receipts" in Google Drive</p>
+          </div>
+        </div>
+
+        <!-- RIGHT 2 COLUMNS: OPTION 2 - IN-PORTAL HOMEWORK & PREP SENDER -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-blue-600">📝 Option 2: Direct Write-Up &amp; Homework Builder</span>
+              <h3 class="text-base font-bold text-slate-900 mt-0.5">Submit Pre-Meeting Homework &amp; Notes to Aviance</h3>
+            </div>
+            <span class="text-xs text-slate-400 hidden sm:inline">Saves to Portal + Emails Aviance</span>
+          </div>
+
+          <form id="formPreMeetingPrep" class="space-y-3.5 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Submission Title / Focus</label>
+                <input type="text" id="prepTitle" required value="Session 3 Prep: 90-Day & 3-Year Goals + Coworker Write-Up" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Link to Uploaded Doc / File Name (Optional)</label>
+                <input type="text" id="prepDocLink" placeholder="Paste Google Doc link or filename uploaded to Drive..." class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">1. 90-Day Focus (Relationship Building, Politicking &amp; Execution) + 3-Year Career Goal</label>
+              <textarea id="prepGoals" rows="3" required placeholder="What is your 3-year career goal so we can map your path? How do you want to execute over the next 90 days?" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">2. Coworker Demographics Write-Up &amp; "The Memo" 4 Categories</label>
+              <textarea id="prepDemographics" rows="3" required placeholder="Write up your coworkers' demographics and where they sit (1. Coworkers, 2. Teammates, 3. White Women peers/leaders, 4. Executives)..." class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">3. "What They Care About" Exercise &amp; Topics for Our Next Call</label>
+              <textarea id="prepCareAbout" rows="3" required placeholder="What does each key person care about most (priorities, hobbies, ego drivers), and what specific situations should we tackle on our call?" class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
+              <button type="button" id="btnSavePrepOnly" class="px-3.5 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-lg transition-all">
+                Save Draft to Portal Log
+              </button>
+              <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow transition-all flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span>Save &amp; Send Prep to Aviance</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- SUBMITTED PRE-MEETING PREP & HOMEWORK LOG -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Submitted Pre-Meeting Write-Ups &amp; Document Log</h3>
+            <p class="text-xs text-slate-500">Your saved homework write-ups and linked documents for quick reference during our calls.</p>
+          </div>
+        </div>
+        <div id="prepSubmissionsContainer" class="space-y-4">
+          <!-- Rendered dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- MODAL 1: LOG NEW SESSION -->
@@ -939,6 +1061,10 @@
           <label class="block font-bold text-slate-700 mb-1">Private Calendly Retainer Booking URL (No-Charge Link)</label>
           <input type="url" id="cfgCalendly" required placeholder="https://calendly.com/your-name/retainer-session" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Shared Google Drive Folder URL (For Pre-Meeting Uploads)</label>
+          <input type="url" id="cfgDriveFolder" required placeholder="https://drive.google.com/drive/folders/..." class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
         <div class="flex justify-end gap-2 pt-2">
           <button type="button" class="modal-close px-3 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold" data-modal="modalCoachSettings">Cancel</button>
           <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold shadow">Save Settings</button>
@@ -982,14 +1108,15 @@
       coachEmail: 'simonxsymone@gmail.com',
       coachPhone: '(810) 282-5994',
       beaconsUrl: 'https://ikeepreciepts.com/shop/df1a6cca-b612-4f90-a29d-022212071949',
-      calendlyRetainerUrl: 'https://calendly.com/mckinzieaviance/new-meeting'
+      calendlyRetainerUrl: 'https://calendly.com/mckinzieaviance/new-meeting',
+      driveFolderUrl: 'https://drive.google.com/drive/folders/1Retdx3Mmef7tDHgZgvihYyQf1MBk5pb2'
     };
 
     let coachConfig = { ...DEFAULT_COACH_CONFIG };
 
     function loadCoachConfig() {
       try {
-        const savedCfg = localStorage.getItem('ikr_coach_config_v2');
+        const savedCfg = localStorage.getItem('ikr_coach_config_v4');
         if (savedCfg) {
           coachConfig = { ...DEFAULT_COACH_CONFIG, ...JSON.parse(savedCfg) };
         }
@@ -1015,6 +1142,8 @@
       if (beaconsPay) beaconsPay.href = coachConfig.beaconsUrl;
       const footerBeacons = document.getElementById('footerBeaconsLink');
       if (footerBeacons) footerBeacons.href = coachConfig.beaconsUrl;
+      const driveLink = document.getElementById('linkDriveFolder');
+      if (driveLink && coachConfig.driveFolderUrl) driveLink.href = coachConfig.driveFolderUrl;
     }
 
     // PRE-POPULATED DATA GROUNDED IN EMAIL SESSIONS & NOV 13 KICKOFF
@@ -1132,6 +1261,17 @@
           date: '2026-10-30',
           category: 'Executive Presence',
           description: 'Built development areas directly into the skip-level discussion. Recognized opportunity to "steer less" in future sessions—evidence of self-awareness and situational leadership growth!'
+        }
+      ],
+      prepSubmissions: [
+        {
+          id: 'prep-1',
+          date: '2026-11-13',
+          title: 'Homework Prompt: 90-Day & 3-Year Goals + Coworker Demographics Write-Up',
+          docLink: 'https://drive.google.com/drive/folders/1Retdx3Mmef7tDHgZgvihYyQf1MBk5pb2',
+          goals: '1) Define 90-day goals around relationship building, corporate politicking, and execution.\n2) Bring back a clear 3-year career goal so we can map out your strategic path.',
+          demographics: 'Complete a write-up of coworkers to understand team demographics and map where each person sits across the 4 categories in "The Memo" (Coworkers, Teammates, White Women, Executives).',
+          careAbout: 'Identify what each key coworker cares about most (priorities, interests, motivators) to guide casual workplace conversations.'
         }
       ]
     };
@@ -1262,12 +1402,13 @@
     let appState = {
       sessions: [],
       actions: [],
-      wins: []
+      wins: [],
+      prepSubmissions: []
     };
 
     function loadState() {
       try {
-        const saved = localStorage.getItem('ikr_fern_coaching_data_v3');
+        const saved = localStorage.getItem('ikr_fern_coaching_data_v4');
         if (saved) {
           appState = JSON.parse(saved);
         } else {
@@ -1282,7 +1423,7 @@
 
     function saveState() {
       try {
-        localStorage.setItem('ikr_fern_coaching_data_v3', JSON.stringify(appState));
+        localStorage.setItem('ikr_fern_coaching_data_v4', JSON.stringify(appState));
       } catch (e) {
         console.warn('Could not persist to LocalStorage');
       }
@@ -1517,10 +1658,77 @@
       });
     }
 
+    function renderPrepSubmissions() {
+      const container = document.getElementById('prepSubmissionsContainer');
+      const badge = document.getElementById('prepCountBadge');
+      if (!container) return;
+      if (!Array.isArray(appState.prepSubmissions)) appState.prepSubmissions = [];
+      if (badge) badge.textContent = appState.prepSubmissions.length;
+
+      if (appState.prepSubmissions.length === 0) {
+        container.innerHTML = '<div class="p-6 text-center text-slate-400 text-xs border border-slate-100 rounded-xl">No pre-meeting write-ups saved yet. Use the form above to save and send your homework ahead of our call!</div>';
+        return;
+      }
+
+      container.innerHTML = appState.prepSubmissions.map(item => {
+        return `
+          <div class="border border-slate-200 rounded-xl p-4 sm:p-5 bg-slate-50/60 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-2.5">
+              <div>
+                <span class="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded mr-2">${item.date}</span>
+                <h4 class="text-sm font-bold text-slate-900 inline">${item.title}</h4>
+              </div>
+              <div class="flex items-center gap-2">
+                ${item.docLink ? `<a href="${item.docLink.startsWith('http') ? item.docLink : coachConfig.driveFolderUrl}" target="_blank" rel="noopener" class="text-xs font-semibold text-blue-600 hover:underline">📎 View Attached Doc/Folder</a>` : ''}
+                <button class="btn-copy-prep text-xs font-semibold text-slate-600 hover:text-slate-900 px-2 py-1 bg-white border border-slate-200 rounded" data-id="${item.id}">Copy Text</button>
+                <button class="btn-delete-prep text-slate-300 hover:text-rose-500 p-1" data-id="${item.id}" title="Delete entry">&times;</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div class="bg-white p-3 rounded-lg border border-slate-200/80">
+                <span class="font-bold text-slate-800 block mb-1">1. 90-Day &amp; 3-Year Goals</span>
+                <p class="text-slate-600 whitespace-pre-line leading-relaxed">${item.goals}</p>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-slate-200/80">
+                <span class="font-bold text-slate-800 block mb-1">2. Coworker Demographics &amp; Map</span>
+                <p class="text-slate-600 whitespace-pre-line leading-relaxed">${item.demographics}</p>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-slate-200/80">
+                <span class="font-bold text-slate-800 block mb-1">3. "What They Care About" &amp; Call Prep</span>
+                <p class="text-slate-600 whitespace-pre-line leading-relaxed">${item.careAbout}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.btn-delete-prep').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          appState.prepSubmissions = appState.prepSubmissions.filter(p => p.id !== id);
+          saveState();
+          showToast('Pre-meeting entry removed');
+        });
+      });
+
+      container.querySelectorAll('.btn-copy-prep').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const item = appState.prepSubmissions.find(p => p.id === id);
+          if (!item) return;
+          const formatted = `${item.title} (${item.date})\n\n1. 90-DAY & 3-YEAR GOALS:\n${item.goals}\n\n2. COWORKER DEMOGRAPHICS & THE MEMO MAP:\n${item.demographics}\n\n3. WHAT THEY CARE ABOUT & CALL PREP:\n${item.careAbout}\n\nAttached Doc/Link: ${item.docLink || 'None'}`;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(formatted).then(() => showToast('Write-up copied to clipboard!'));
+          }
+        });
+      });
+    }
+
     function updateUI() {
       renderSessions();
       renderActions();
       renderWins();
+      renderPrepSubmissions();
     }
 
     // MODAL HELPERS
@@ -1573,6 +1781,9 @@
       const heroBtnDraft = document.getElementById('heroBtnDraft');
       if (heroBtnDraft) heroBtnDraft.addEventListener('click', () => switchToTab('tab-hotline'));
 
+      const heroBtnPrep = document.getElementById('heroBtnPrep');
+      if (heroBtnPrep) heroBtnPrep.addEventListener('click', () => switchToTab('tab-prep'));
+
       const btnBookNextCall = document.getElementById('btnBookNextCall');
       if (btnBookNextCall) {
         btnBookNextCall.addEventListener('click', () => {
@@ -1597,6 +1808,8 @@
           document.getElementById('cfgPhone').value = coachConfig.coachPhone;
           document.getElementById('cfgBeacons').value = coachConfig.beaconsUrl;
           document.getElementById('cfgCalendly').value = coachConfig.calendlyRetainerUrl;
+          const driveInput = document.getElementById('cfgDriveFolder');
+          if (driveInput) driveInput.value = coachConfig.driveFolderUrl || '';
           openModal('modalCoachSettings');
         });
       }
@@ -1609,8 +1822,10 @@
           coachConfig.coachPhone = document.getElementById('cfgPhone').value.trim();
           coachConfig.beaconsUrl = document.getElementById('cfgBeacons').value.trim();
           coachConfig.calendlyRetainerUrl = document.getElementById('cfgCalendly').value.trim();
+          const driveInput = document.getElementById('cfgDriveFolder');
+          if (driveInput) coachConfig.driveFolderUrl = driveInput.value.trim();
           try {
-            localStorage.setItem('ikr_coach_config_v2', JSON.stringify(coachConfig));
+            localStorage.setItem('ikr_coach_config_v4', JSON.stringify(coachConfig));
           } catch (err) {}
           applyCoachConfigToDOM();
           closeModal('modalCoachSettings');
@@ -1710,6 +1925,56 @@
           formAction.reset();
           closeModal('modalAction');
           showToast('Action item added!');
+        });
+      }
+
+      // Pre-Meeting Prep Form
+      const formPrep = document.getElementById('formPreMeetingPrep');
+      const btnSavePrepOnly = document.getElementById('btnSavePrepOnly');
+
+      function savePrepEntry(sendEmail) {
+        const title = document.getElementById('prepTitle').value.trim() || 'Pre-Meeting Homework & Prep';
+        const docLink = document.getElementById('prepDocLink').value.trim();
+        const goals = document.getElementById('prepGoals').value.trim();
+        const demographics = document.getElementById('prepDemographics').value.trim();
+        const careAbout = document.getElementById('prepCareAbout').value.trim();
+
+        if (!goals && !demographics && !careAbout) {
+          showToast('Please fill in at least one homework section first');
+          return;
+        }
+
+        const entry = {
+          id: 'prep-' + Date.now(),
+          date: new Date().toISOString().split('T')[0],
+          title,
+          docLink,
+          goals: goals || 'N/A',
+          demographics: demographics || 'N/A',
+          careAbout: careAbout || 'N/A'
+        };
+
+        if (!Array.isArray(appState.prepSubmissions)) appState.prepSubmissions = [];
+        appState.prepSubmissions.unshift(entry);
+        saveState();
+
+        if (sendEmail) {
+          const subject = encodeURIComponent('[Fern Pre-Meeting Prep] ' + title);
+          const bodyText = `Hi Aviance,\n\nHere is my pre-meeting homework and prep ahead of our next session:\n\n1. 90-DAY FOCUS & 3-YEAR CAREER GOAL:\n${entry.goals}\n\n2. COWORKER DEMOGRAPHICS & THE MEMO MAP:\n${entry.demographics}\n\n3. WHAT THEY CARE ABOUT & CALL TOPICS:\n${entry.careAbout}\n\nUploaded Doc / Drive Link: ${entry.docLink || 'Uploaded to Shared Drive Folder'}\n\nBest,\nFern`;
+          window.location.href = 'mailto:' + coachConfig.coachEmail + '?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
+          showToast('Saved to portal & opening email to Aviance!');
+        } else {
+          showToast('Pre-meeting homework saved to your portal log!');
+        }
+      }
+
+      if (btnSavePrepOnly) {
+        btnSavePrepOnly.addEventListener('click', () => savePrepEntry(false));
+      }
+      if (formPrep) {
+        formPrep.addEventListener('submit', (e) => {
+          e.preventDefault();
+          savePrepEntry(true);
         });
       }
     }
