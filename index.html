@@ -108,7 +108,7 @@
         <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-actions">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
           Progress & Action Items
-          <span id="pendingActionCount" class="bg-blue-600 text-white text-xs px-1.5 py-0.2 rounded-full">9</span>
+          <span id="pendingActionCount" class="bg-blue-600 text-white text-xs px-1.5 py-0.2 rounded-full">7</span>
         </button>
         <button class="nav-tab px-3 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2" data-tab="tab-wins">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
@@ -1023,15 +1023,13 @@
         {
           id: 'sess-2',
           date: '2026-11-13',
-          title: 'Session 2: Portal Walkthrough, Cultural Navigation & Reputation Rebuild',
+          title: 'Session 2: Portal Walkthrough, 90-Day & 3-Year Vision & Workplace Politics',
           duration: '30 minutes (Kickoff Alignment)',
-          takeaways: 'Walked through the Client Portal and aligned on treating this role as a paid training ground for future career moves. Addressed navigating a predominantly white/Midwest workplace culture without faking interest in sports by using the "Low-Stakes Pivot." Applied Minda Harts\' "The Memo" framework to map the 4 workplace archetypes (Coworkers, Teammates, White Women peers/leaders, and Executives). Built a 3-pillar plan to flip the "slow learner" perception: (1) 48-hour SOP follow-through, (2) building tangible skills, and (3) scoping one mini-project with measurable outcomes for her resume.',
+          takeaways: 'Walked through the Client Portal and aligned on 90-day and 3-year career goals. Honed in on three core 90-day pillars: relationship building, corporate politicking, and mastering execution. Discussed navigating workplace culture and applying Minda Harts\' "The Memo" framework to understand coworker demographics and identify what each person cares about most to guide authentic, strategic relationship building.',
           actionItems: [
-            'Small Talk Bridge: Prep 2 non-sports conversation pivots (food, weekend plans, travel) and use in 3 casual interactions this week',
-            'The Memo Political Map: Write down 1–2 people at work in each of the 4 categories (Coworkers, Teammates, White Women, Executives) and what they value most',
-            'Flip the "Slow Learner" Narrative: Create a 1-page personal SOP for every new process learned and send a 48-hour proactive execution update',
-            'Tangible Outcome Mini-Project: Identify 1 messy/repetitive team process to fix or streamline so we can scope it into a resume bullet on our 1-hour call',
-            'Exit Receipts Log: File at least 2 tangible skill/task wins in the Wins & Receipts Vault before our next session'
+            '90-Day & 3-Year Career Goals: Define 90-day focus areas (relationship building, politicking, and execution) and bring back a clear 3-year career goal so we can map out your strategic path',
+            'Coworker Demographics Write-Up: Complete a write-up of your coworkers to map out team demographics and where each person sits across the 4 workplace archetypes from "The Memo"',
+            '"What They Care About" Exercise: Identify what each key coworker/stakeholder cares about most (their core priorities, interests, and motivators) to use as natural bridges in casual workplace conversations'
           ]
         },
         {
@@ -1051,37 +1049,23 @@
       actions: [
         {
           id: 'act-101',
-          text: 'Small Talk Pivot: Prep 2 non-sports conversation bridges (weekend plans, food, travel) & test in 3 casual chats',
-          category: 'Cultural Navigation',
-          dueDate: 'Nov 20',
+          text: '90-Day & 3-Year Career Goals: Outline 90-day goals (relationship building, politicking, execution) and bring back a 3-year goal to map your path',
+          category: 'Career Vision',
+          dueDate: 'Next Session',
           completed: false
         },
         {
           id: 'act-102',
-          text: 'The Memo Political Map: Map 1–2 colleagues in each of the 4 categories (Coworkers, Teammates, White Women, Executives) & their core motivators',
+          text: 'Coworker Demographics Write-Up: Document coworker demographics and map them across the 4 workplace categories from "The Memo"',
           category: 'Corporate Politics',
           dueDate: 'Next Session',
           completed: false
         },
         {
           id: 'act-103',
-          text: 'Erase "Slow Learner" Label: Build a personal 1-page SOP checklist for new tasks & send a 48-hour proactive follow-through note',
-          category: 'Reputation Rebuild',
-          dueDate: 'Ongoing Daily',
-          completed: false
-        },
-        {
-          id: 'act-104',
-          text: 'Tangible Resume Win: Bring 1 broken or repetitive team process to scope into a measurable skill/outcome mini-project',
-          category: 'Exit Strategy',
-          dueDate: 'Nov 1-Hr Session',
-          completed: false
-        },
-        {
-          id: 'act-105',
-          text: 'Log at least 2 tangible skill wins or completed deliverables in the Wins & Receipts Vault',
-          category: 'Documentation',
-          dueDate: 'Before Next Call',
+          text: '"What They Care About" Exercise: Identify what each key coworker cares about most and use those topics to build casual workplace rapport',
+          category: 'Relationship Building',
+          dueDate: 'Next Session',
           completed: false
         },
         {
@@ -1283,7 +1267,7 @@
 
     function loadState() {
       try {
-        const saved = localStorage.getItem('ikr_fern_coaching_data_v2');
+        const saved = localStorage.getItem('ikr_fern_coaching_data_v3');
         if (saved) {
           appState = JSON.parse(saved);
         } else {
@@ -1298,7 +1282,7 @@
 
     function saveState() {
       try {
-        localStorage.setItem('ikr_fern_coaching_data_v2', JSON.stringify(appState));
+        localStorage.setItem('ikr_fern_coaching_data_v3', JSON.stringify(appState));
       } catch (e) {
         console.warn('Could not persist to LocalStorage');
       }
